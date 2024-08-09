@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index_view,books_view,PortfolioListView,about_view,GalleryListView,BlogListView,ContactFormView,BlogDetailView,GalleryDetailView
+from .views import index_view,books_view,PortfolioListView,about_view,GalleryListView,BlogListView,ContactFormView,BlogDetailView,GalleryDetailView,telegram_webapp_view,save_user_data
 
 urlpatterns = [
     path('',index_view,name='index-page'),
@@ -11,5 +11,7 @@ urlpatterns = [
     path('blog/',BlogListView.as_view(),name='blog-page'),
     path('blog/<int:pk>',BlogDetailView.as_view(),name="blog-single-page"),
     path('gallery/<int:pk>',GalleryDetailView.as_view(),name="gallery-single-page"),
+    path('telegram-webapp/', telegram_webapp_view, name='telegram_webapp'),
+    path('save-user-data/', save_user_data, name='save_user_data'),
 
 ]

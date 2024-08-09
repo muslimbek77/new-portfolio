@@ -40,7 +40,7 @@
     <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
     <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}"></script>
     <script src="{% static 'js/modernizr.min.js' %}"></script>
-    
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <!-- InstanceBeginEditable name="head" -->
     <!-- InstanceEndEditable -->
     
@@ -68,6 +68,10 @@
                           <li><a href="{% url 'gallery-page'%}">Gallery</a></li>
                           <li><a href="{% url 'about-page'%}">About Me</a>           
                           <li><a href="{% url 'contact-page'%}">Contact</a></li>
+                          <li><a href="{% url 'save_user_data'%}">save</a></li>
+                          <li><a href="{% url 'telegram_webapp'%}">webapp</a></li>
+
+                          
                       </ul>
                   </div>
                   <!-- nav-menu -->
@@ -240,7 +244,23 @@
   <script src="{% static 'js/selection-sharer/selection-sharer.js' %}"></script>
   <script src="{% static 'js/responsive-image-gallery/r-gallery.js' %}"></script>
   <script src="{% static 'js/main.js' %}"></script>
-  
+  <script>
+    Telegram.WebApp.ready();
+
+    const user = Telegram.WebApp.initDataUnsafe.user;
+
+    if (user) {
+        document.getElementById('user-info').innerHTML = `
+            <p>User ID: ${user.id}</p>
+            <p>First Name: ${user.first_name}</p>
+            <p>Last Name: ${user.last_name}</p>
+            <p>Username: ${user.username}</p>
+            <p>Language Code: ${user.language_code}</p>
+        `;
+    } else {
+        document.getElementById('user-info').innerHTML = "<p>User information is not available.</p>";
+    }
+</script>
   
   </body>
   <!-- InstanceEnd -->

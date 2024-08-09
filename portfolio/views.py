@@ -86,6 +86,7 @@ class BlogListView(ListView):
         return Blog.objects.order_by('-created_date')
     
     def get_context_data(self, **kwargs):
+        print(self.request.scheme)
         context = super().get_context_data(**kwargs)
         context["categories"] = Category.objects.all()
         return context
@@ -126,3 +127,19 @@ def books_view(request):
         "books" : books,
     }
     return render(request, 'books.html',context)
+
+def telegram_webapp_view(request):
+    return render(request, 'telegram_webapp.html')
+
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+@csrf_exempt
+def save_user_data(request):
+    if request.method == 'POST':
+        user_data = json.loads(request.body)
+        # Process user data (e.g., save to database)
+        return JsonResponse({'status': 'success', 'user_data': user_data})
+    return JsonResponse({'status': 'failed'}, status=400)
